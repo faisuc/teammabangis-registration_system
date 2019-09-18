@@ -63,6 +63,12 @@ Route::resource('forms', 'FormController');
 
 Route::get('testonly', function () {
 
+    $text = 'ignore everything except this (text) (text2)';
+    if( preg_match( '!\(([^\)]+)\)!', $text, $match ) )
+    $text = $match[1];
+    dd($text);
+    exit;
+
     dd(Request::all('search', 'type', 'name'));
 
     $collection = collect([

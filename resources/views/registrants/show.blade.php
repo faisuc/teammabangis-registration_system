@@ -28,6 +28,10 @@
                             @include('registrants.edit.contact_person_in_case_of_emergency')
                         </div>
 
+                        <div class="form-row" id="attachments-form-container">
+                            @include('registrants.edit.attachments')
+                        </div>
+
                         <button type="button" id="previous-form-btn" class="btn btn-primary btn-lg">Previous</button>
                         <button type="button" id="next-form-btn" class="btn btn-primary btn-lg">Next</button>
                         <button type="submit" id="submit-form-btn" class="btn btn-primary btn-lg">Update</button>

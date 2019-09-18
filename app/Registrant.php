@@ -42,6 +42,11 @@ class Registrant extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    public function files()
+    {
+        return $this->belongsToMany(File::class, 'user_file', 'user_id', 'file_id')->withTimestamps();
+    }
+
     public function projectSites()
     {
         return $this->belongsToMany('App\ProjectSite', 'registrant_has_project_sites', 'user_id', 'project_site_id')->withTimestamps();

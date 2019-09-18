@@ -13,7 +13,7 @@
                 <div class="card-body">
                     @sharedAlerts
 
-                    <form action="{{ route('forms.store') }}" method="POST">
+                    <form action="{{ route('forms.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-row" id="personal-information-form-container">
                             @include('forms.create.personal_information')
@@ -25,6 +25,10 @@
 
                         <div class="form-row" id="contact-person-in-case-of-emergency-information-form-container">
                             @include('forms.create.contact_person_in_case_of_emergency')
+                        </div>
+
+                        <div class="form-row" id="attachments-form-container">
+                            @include('forms.create.attachments')
                         </div>
 
                         <button type="button" id="previous-form-btn" class="btn btn-primary btn-lg">Previous</button>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\ContactPersonInCaseOfEmergency;
+use App\File;
 use App\Mail\SendInformationDetailsToRegistrant;
 use App\Mail\SendNewRegistrantToAdmin;
 use App\PersonalInformation;
@@ -10,9 +11,11 @@ use App\Registrant;
 use App\Role;
 use App\SpouseInformation;
 use App\User;
+use Illuminate\Http\File as IlluminateFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class FormController extends Controller
@@ -105,6 +108,25 @@ class FormController extends Controller
         Mail::to([User::find($areaManagers[0])->email])->send(
             new SendNewRegistrantToAdmin($personalInformation)
         );
+
+        $attachments = $request->file('attachments');
+        if ($request->has('attachments')) {
+            foreach ($attachments as $attachment) {
+                $extension = $attachment->getClientOriginalExtension();
+                $mime = $attachment->getMimeType();
+                $name = Str::random(10) . '_' . time() . '.' . $extension;
+                $path = Storage::putFileAs('public/attachments', $attachment, $name);
+
+                $file = new File;
+                $file->name = $name;
+                $file->path = $path;
+                $file->type = $extension;
+                $file->mime = $mime;
+                $file->save();
+
+                $registrant->files()->attach($file->id);
+            }
+        }
 
         return redirect()->back()->with('success', 'Information has been successfully sent.');
 

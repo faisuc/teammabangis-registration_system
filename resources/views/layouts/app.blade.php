@@ -35,6 +35,13 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <form class="form-inline my-2 my-lg-0" action="{{ route('registrant_information.show') }}" method="GET">
+                                <input class="form-control mr-sm-2" type="text" placeholder="Email" name="email" aria-label="Search">
+                                <input class="form-control mr-sm-2" type="text" placeholder="Reference Code" name="reference_code" aria-label="Search">
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                            </form>
+                        </li>
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">

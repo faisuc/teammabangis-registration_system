@@ -17,7 +17,8 @@ class RegistrantController extends Controller
     {
         $this->views['registrants'] = Registrant::whereHas('roles', function ($q) {
                                             $q->where('name', 'registrant');
-                                        })->paginate(10);
+                                        })->whereHas('personalInformation')
+                                        ->paginate(10);
 
         return view('admin.registrants.index', $this->views);
     }
